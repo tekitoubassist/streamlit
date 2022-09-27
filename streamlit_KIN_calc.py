@@ -295,10 +295,12 @@ def test_app():
     for i in range(st.session_state.count):
         ADtoKIN_calc(st_year[i], st_month[i], st_day[i], st_range)
         with output_col[i * 2]:
-            st.subheader(st.session_state.birth)
+        # with output_col[i * 2]:
+            # st.subheader(st.session_state.birth)
             st.table(st.session_state.KIN)
         with output_col[i * 2 + 1]:
-            st.subheader(st.session_state.range)
+        # with output_col[i * 2 + 1]:
+            # st.subheader(st.session_state.range)
             st.dataframe(st.session_state.AD)
 
     # for i in range(st.session_state.count):
