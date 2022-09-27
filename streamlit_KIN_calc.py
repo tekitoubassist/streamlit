@@ -233,7 +233,7 @@ def ADtoKIN_calc(st_year: int, st_month: int, st_day: int, st_range: int):
     st.session_state.KIN = KIN_df
     # AD_df = pd.DataFrame({"日付": AD_result}, index=AD_data)
     # st.session_state.AD = AD_df
-    # st.session_state.birth = f"{st_year}年{st_month}月{st_day}日生まれの人の計算結果"
+    st.session_state.birth = f"{st_year}年{st_month}月{st_day}日"
     # st.session_state.range = f"ツォルキン周期対応表(±{st_range}周期)"
     # KIN_list, AD_list = st.columns(2)
     # with KIN_list:
@@ -295,7 +295,7 @@ def test_app():
     for i in range(st.session_state.count):
         ADtoKIN_calc(st_year[i], st_month[i], st_day[i], st_range)
         with output_col[i]:
-            # st.subheader(st.session_state.birth)
+            st.subheader(st.session_state.birth)
             st.table(st.session_state.KIN)
         # with output_col[i * 2 + 1]:
             # st.subheader(st.session_state.range)
