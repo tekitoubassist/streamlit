@@ -86,34 +86,34 @@ def ADtoKIN_calc(st_year: int, st_month: int, st_day: int, st_range: int):
         KIN_castle_info = "魅惑の緑の中央の城"
     KIN_data.append("5つの城")
     KIN_result.append(KIN_castle_info) #5つの城
-    # KIN_data.append("反対KIN")
-    # KIN_result.append(KINlist[(KIN_math + 9) % 20]) #反対KIN
-    # KIN_data.append("類似KIN")
-    # KIN_result.append(KINlist[(38 - KIN_math) % 20]) #類似KIN
-    # KIN_data.append("神秘KIN")
-    # KIN_result.append(KINlist[20 - KIN_math]) #神秘KIN
-    # guide_sel = sound_num % 5
-    # if guide_sel == 1:
-    #     guide_num = KIN_math - 1
-    #     reverse_guide_num = KIN_math - 1
-    # elif guide_sel == 2:
-    #     guide_num = (KIN_math + 11) % 20
-    #     reverse_guide_num = (KIN_math + 7) % 20
-    # elif guide_sel == 3:
-    #     guide_num = (KIN_math + 3) % 20
-    #     reverse_guide_num = (KIN_math + 15) % 20
-    # elif guide_sel == 4:
-    #     guide_num = (KIN_math + 15) % 20
-    #     reverse_guide_num = (KIN_math + 3) % 20
-    # else:
-    #     guide_num = (KIN_math + 7) % 20
-    #     reverse_guide_num = (KIN_math + 11) % 20
-    # KIN_data.append("ガイドKIN")
-    # KIN_result.append(KINlist[guide_num]) #ガイドKIN
-    # KIN_data.append("逆ガイドKIN")
-    # KIN_result.append(KINlist[reverse_guide_num]) #逆ガイドKIN
-    # KIN_data.append("鏡KIN")
-    # KIN_result.append(f"{261 - KIN_num} (WS : " + KINlist[(28 - KIN_math) % 20] + ")") #鏡KIN
+    KIN_data.append("反対KIN")
+    KIN_result.append(KINlist[(KIN_math + 9) % 20]) #反対KIN
+    KIN_data.append("類似KIN")
+    KIN_result.append(KINlist[(38 - KIN_math) % 20]) #類似KIN
+    KIN_data.append("神秘KIN")
+    KIN_result.append(KINlist[20 - KIN_math]) #神秘KIN
+    guide_sel = sound_num % 5
+    if guide_sel == 1:
+        guide_num = KIN_math - 1
+        reverse_guide_num = KIN_math - 1
+    elif guide_sel == 2:
+        guide_num = (KIN_math + 11) % 20
+        reverse_guide_num = (KIN_math + 7) % 20
+    elif guide_sel == 3:
+        guide_num = (KIN_math + 3) % 20
+        reverse_guide_num = (KIN_math + 15) % 20
+    elif guide_sel == 4:
+        guide_num = (KIN_math + 15) % 20
+        reverse_guide_num = (KIN_math + 3) % 20
+    else:
+        guide_num = (KIN_math + 7) % 20
+        reverse_guide_num = (KIN_math + 11) % 20
+    KIN_data.append("ガイドKIN")
+    KIN_result.append(KINlist[guide_num]) #ガイドKIN
+    KIN_data.append("逆ガイドKIN")
+    KIN_result.append(KINlist[reverse_guide_num]) #逆ガイドKIN
+    KIN_data.append("鏡KIN")
+    KIN_result.append(f"{261 - KIN_num} (WS : " + KINlist[(28 - KIN_math) % 20] + ")") #鏡KIN
 
     # date_diff_cnt = KIN_date_diff
     # date_cnt = specified_date
