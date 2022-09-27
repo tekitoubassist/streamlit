@@ -175,7 +175,7 @@ def test_app():
     output_col = st.columns(st.session_state.count)
     for i in range(st.session_state.count):
         st.session_state.birth = f"{st_year[i]}年{st_month[i]}月{st_day[i]}日"
-        st.session_state.KIN = ADtoKIN_calc(st_year[i], st_month[i], st_day[i], "SC", "WS", "銀河の音")
+        st.session_state.KIN = ADtoKIN_calc(st_year[i], st_month[i], st_day[i])
         st.session_state.KIN.index = st.session_state.KIN["内容"]
         st.session_state.KIN = st.session_state.KIN.drop(columns="内容")
         with output_col[i]:
