@@ -86,155 +86,155 @@ def ADtoKIN_calc(st_year: int, st_month: int, st_day: int, st_range: int):
         KIN_castle_info = "魅惑の緑の中央の城"
     KIN_data.append("5つの城")
     KIN_result.append(KIN_castle_info) #5つの城
-    KIN_data.append("反対KIN")
-    KIN_result.append(KINlist[(KIN_math + 9) % 20]) #反対KIN
-    KIN_data.append("類似KIN")
-    KIN_result.append(KINlist[(38 - KIN_math) % 20]) #類似KIN
-    KIN_data.append("神秘KIN")
-    KIN_result.append(KINlist[20 - KIN_math]) #神秘KIN
-    guide_sel = sound_num % 5
-    if guide_sel == 1:
-        guide_num = KIN_math - 1
-        reverse_guide_num = KIN_math - 1
-    elif guide_sel == 2:
-        guide_num = (KIN_math + 11) % 20
-        reverse_guide_num = (KIN_math + 7) % 20
-    elif guide_sel == 3:
-        guide_num = (KIN_math + 3) % 20
-        reverse_guide_num = (KIN_math + 15) % 20
-    elif guide_sel == 4:
-        guide_num = (KIN_math + 15) % 20
-        reverse_guide_num = (KIN_math + 3) % 20
-    else:
-        guide_num = (KIN_math + 7) % 20
-        reverse_guide_num = (KIN_math + 11) % 20
-    KIN_data.append("ガイドKIN")
-    KIN_result.append(KINlist[guide_num]) #ガイドKIN
-    KIN_data.append("逆ガイドKIN")
-    KIN_result.append(KINlist[reverse_guide_num]) #逆ガイドKIN
-    KIN_data.append("鏡KIN")
-    KIN_result.append(f"{261 - KIN_num} (WS : " + KINlist[(28 - KIN_math) % 20] + ")") #鏡KIN
+    # KIN_data.append("反対KIN")
+    # KIN_result.append(KINlist[(KIN_math + 9) % 20]) #反対KIN
+    # KIN_data.append("類似KIN")
+    # KIN_result.append(KINlist[(38 - KIN_math) % 20]) #類似KIN
+    # KIN_data.append("神秘KIN")
+    # KIN_result.append(KINlist[20 - KIN_math]) #神秘KIN
+    # guide_sel = sound_num % 5
+    # if guide_sel == 1:
+    #     guide_num = KIN_math - 1
+    #     reverse_guide_num = KIN_math - 1
+    # elif guide_sel == 2:
+    #     guide_num = (KIN_math + 11) % 20
+    #     reverse_guide_num = (KIN_math + 7) % 20
+    # elif guide_sel == 3:
+    #     guide_num = (KIN_math + 3) % 20
+    #     reverse_guide_num = (KIN_math + 15) % 20
+    # elif guide_sel == 4:
+    #     guide_num = (KIN_math + 15) % 20
+    #     reverse_guide_num = (KIN_math + 3) % 20
+    # else:
+    #     guide_num = (KIN_math + 7) % 20
+    #     reverse_guide_num = (KIN_math + 11) % 20
+    # KIN_data.append("ガイドKIN")
+    # KIN_result.append(KINlist[guide_num]) #ガイドKIN
+    # KIN_data.append("逆ガイドKIN")
+    # KIN_result.append(KINlist[reverse_guide_num]) #逆ガイドKIN
+    # KIN_data.append("鏡KIN")
+    # KIN_result.append(f"{261 - KIN_num} (WS : " + KINlist[(28 - KIN_math) % 20] + ")") #鏡KIN
 
-    date_diff_cnt = KIN_date_diff
-    date_cnt = specified_date
-    for i in range(st_range + 1):
-        if date_diff_cnt > 260:
-            if i > 0:
-                date_diff_cnt -= 260
-                if calendar.isleap(date_cnt.year) == True:
-                    if not((date_cnt.month >= 11) and ((date_cnt.month == 12) or (date_cnt.day >= 16))):
-                        if date_cnt.month >= 3:
-                            date_cnt -= datetime.timedelta(1)
-                date_cnt -= datetime.timedelta(260)
-                if date_diff_cnt <= 260:
-                    break
-        else:
-            break
+    # date_diff_cnt = KIN_date_diff
+    # date_cnt = specified_date
+    # for i in range(st_range + 1):
+    #     if date_diff_cnt > 260:
+    #         if i > 0:
+    #             date_diff_cnt -= 260
+    #             if calendar.isleap(date_cnt.year) == True:
+    #                 if not((date_cnt.month >= 11) and ((date_cnt.month == 12) or (date_cnt.day >= 16))):
+    #                     if date_cnt.month >= 3:
+    #                         date_cnt -= datetime.timedelta(1)
+    #             date_cnt -= datetime.timedelta(260)
+    #             if date_diff_cnt <= 260:
+    #                 break
+    #     else:
+    #         break
 
-    specified_date_month = specified_date.month
-    specified_date_day = specified_date.day
-    date_cnt_year = date_cnt.year
-    date_cnt_month = date_cnt.month
-    date_cnt_day = date_cnt.day
-    if specified_date == date_cnt:
-        if calendar.isleap(f"     {date_cnt_year}     ") == True:
-            if (date_cnt_month == 2) and (date_cnt_day == 29):
-                AD_result.append(f"     {specified_date}     ")
-                AD_data.append(" 誕生日 ")
-                date_cnt += datetime.timedelta(1)
-                AD_result.append(f"     {date_cnt}     ")
-                AD_data.append(" 翌日 ")
-            elif (date_cnt_month == 3) and (date_cnt_day == 1):
-                AD_result.append(f"     {datetime.date(date_cnt_year, 2, 29)}     ")
-                AD_data.append(" 前日 ")
-                AD_result.append(f"     {specified_date}     ")
-                AD_data.append(" 誕生日 ")
-            else:
-                AD_result.append(f"     {date_cnt}     ")
-                AD_data.append(" 誕生日 ")
-        else:
-            AD_result.append(f"     {date_cnt}     ")
-            AD_data.append(" 誕生日 ")
-    else:
-        if calendar.isleap(date_cnt_year) == True:
-            if (date_cnt_month == 2) and (date_cnt_day == 29):
-                AD_result.append(f"     {date_cnt}     ")
-                AD_data.append(f" {- i}周期 ")
-                date_cnt += datetime.timedelta(1)
-            elif (date_cnt_month == 3) and (date_cnt_day == 1):
-                AD_result.append(f"     {datetime.date(date_cnt_year, 2, 29)}     ")
-                AD_data.append(f" {- i}周期 ")
-        AD_result.append(f"     {date_cnt}     ")
-        AD_data.append(f" {- i}周期 ")
-    date_lim = max_date- date_cnt
-    for j in range(st_range + i):
-        if date_lim.days > 260:
-            date_cnt += datetime.timedelta(260)
-            date_cnt_year = date_cnt.year
-            date_cnt_month = date_cnt.month
-            date_cnt_day = date_cnt.day
-            date_lim = max_date - date_cnt
-            if (specified_date == date_cnt) or (specified_date == (date_cnt + datetime.timedelta(1))):
-                if calendar.isleap(date_cnt_year) == True:
-                    if (specified_date_month == 2) and (specified_date_day == 29):
-                        AD_result.append(f"     {specified_date}     ")
-                        AD_data.append(" 誕生日 ")
-                        date_cnt += datetime.timedelta(1)
-                        AD_result.append(f"     {date_cnt}     ")
-                        AD_data.append(" 翌日 ")
-                    elif specified_date_month >= 3:
-                        if (specified_date_month == 3) and (specified_date_day == 1):
-                            AD_result.append(f"     {date_cnt}     ")
-                            AD_data.append(" 前日 ")
-                            AD_result.append(f"     {specified_date}     ")
-                            AD_data.append(" 誕生日 ")
-                            date_cnt += datetime.timedelta(1)
-                        else:
-                            if not((date_cnt_month >= 11) and ((date_cnt_month == 12) or (date_cnt_day >= 16))):
-                                date_cnt += datetime.timedelta(1)
-                            AD_result.append(f"     {date_cnt}     ")
-                            AD_data.append(" 誕生日 ")
-                    else:
-                        AD_result.append(f"     {date_cnt}     ")
-                        AD_data.append(" 誕生日 ")
-                else:
-                    AD_result.append(f"     {date_cnt}     ")
-                    AD_data.append(" 誕生日 ")
-            else:
-                if calendar.isleap(date_cnt_year) == True:
-                    if (date_cnt_month == 2) and (date_cnt_day == 29):
-                        AD_result.append(f"     {date_cnt}     ")
-                        AD_data.append(f" {j - i + 1}周期 ")
-                        date_cnt += datetime.timedelta(1)
-                        AD_result.append(f"     {date_cnt}     ")
-                        AD_data.append(f" {j - i + 1}周期 ")
-                    elif date_cnt_month >= 3:
-                        if (date_cnt_month == 3) and (date_cnt_day == 1):
-                            AD_result.append(f"     {datetime.date(date_cnt_year, 2, 29)}     ")
-                            AD_data.append(f" {j - i + 1}周期 ")
-                            AD_result.append(f"     {date_cnt}     ")
-                            AD_data.append(f" {j - i + 1}周期 ")
-                            date_cnt += datetime.timedelta(1)
-                        else:
-                            if not((date_cnt_month >= 11) and ((date_cnt_month == 12) or (date_cnt_day >= 16))):
-                                date_cnt += datetime.timedelta(1)
-                            AD_result.append(f"     {date_cnt}     ")
-                            AD_data.append(f" {j - i + 1}周期 ")
-                    else:
-                        AD_result.append(f"     {date_cnt}     ")
-                        AD_data.append(f" {j - i + 1}周期 ")
-                else:
-                    AD_result.append(f"     {date_cnt}     ")
-                    AD_data.append(f" {j - i + 1}周期 ")
-        else:
-            break
+    # specified_date_month = specified_date.month
+    # specified_date_day = specified_date.day
+    # date_cnt_year = date_cnt.year
+    # date_cnt_month = date_cnt.month
+    # date_cnt_day = date_cnt.day
+    # if specified_date == date_cnt:
+    #     if calendar.isleap(f"     {date_cnt_year}     ") == True:
+    #         if (date_cnt_month == 2) and (date_cnt_day == 29):
+    #             AD_result.append(f"     {specified_date}     ")
+    #             AD_data.append(" 誕生日 ")
+    #             date_cnt += datetime.timedelta(1)
+    #             AD_result.append(f"     {date_cnt}     ")
+    #             AD_data.append(" 翌日 ")
+    #         elif (date_cnt_month == 3) and (date_cnt_day == 1):
+    #             AD_result.append(f"     {datetime.date(date_cnt_year, 2, 29)}     ")
+    #             AD_data.append(" 前日 ")
+    #             AD_result.append(f"     {specified_date}     ")
+    #             AD_data.append(" 誕生日 ")
+    #         else:
+    #             AD_result.append(f"     {date_cnt}     ")
+    #             AD_data.append(" 誕生日 ")
+    #     else:
+    #         AD_result.append(f"     {date_cnt}     ")
+    #         AD_data.append(" 誕生日 ")
+    # else:
+    #     if calendar.isleap(date_cnt_year) == True:
+    #         if (date_cnt_month == 2) and (date_cnt_day == 29):
+    #             AD_result.append(f"     {date_cnt}     ")
+    #             AD_data.append(f" {- i}周期 ")
+    #             date_cnt += datetime.timedelta(1)
+    #         elif (date_cnt_month == 3) and (date_cnt_day == 1):
+    #             AD_result.append(f"     {datetime.date(date_cnt_year, 2, 29)}     ")
+    #             AD_data.append(f" {- i}周期 ")
+    #     AD_result.append(f"     {date_cnt}     ")
+    #     AD_data.append(f" {- i}周期 ")
+    # date_lim = max_date- date_cnt
+    # for j in range(st_range + i):
+    #     if date_lim.days > 260:
+    #         date_cnt += datetime.timedelta(260)
+    #         date_cnt_year = date_cnt.year
+    #         date_cnt_month = date_cnt.month
+    #         date_cnt_day = date_cnt.day
+    #         date_lim = max_date - date_cnt
+    #         if (specified_date == date_cnt) or (specified_date == (date_cnt + datetime.timedelta(1))):
+    #             if calendar.isleap(date_cnt_year) == True:
+    #                 if (specified_date_month == 2) and (specified_date_day == 29):
+    #                     AD_result.append(f"     {specified_date}     ")
+    #                     AD_data.append(" 誕生日 ")
+    #                     date_cnt += datetime.timedelta(1)
+    #                     AD_result.append(f"     {date_cnt}     ")
+    #                     AD_data.append(" 翌日 ")
+    #                 elif specified_date_month >= 3:
+    #                     if (specified_date_month == 3) and (specified_date_day == 1):
+    #                         AD_result.append(f"     {date_cnt}     ")
+    #                         AD_data.append(" 前日 ")
+    #                         AD_result.append(f"     {specified_date}     ")
+    #                         AD_data.append(" 誕生日 ")
+    #                         date_cnt += datetime.timedelta(1)
+    #                     else:
+    #                         if not((date_cnt_month >= 11) and ((date_cnt_month == 12) or (date_cnt_day >= 16))):
+    #                             date_cnt += datetime.timedelta(1)
+    #                         AD_result.append(f"     {date_cnt}     ")
+    #                         AD_data.append(" 誕生日 ")
+    #                 else:
+    #                     AD_result.append(f"     {date_cnt}     ")
+    #                     AD_data.append(" 誕生日 ")
+    #             else:
+    #                 AD_result.append(f"     {date_cnt}     ")
+    #                 AD_data.append(" 誕生日 ")
+    #         else:
+    #             if calendar.isleap(date_cnt_year) == True:
+    #                 if (date_cnt_month == 2) and (date_cnt_day == 29):
+    #                     AD_result.append(f"     {date_cnt}     ")
+    #                     AD_data.append(f" {j - i + 1}周期 ")
+    #                     date_cnt += datetime.timedelta(1)
+    #                     AD_result.append(f"     {date_cnt}     ")
+    #                     AD_data.append(f" {j - i + 1}周期 ")
+    #                 elif date_cnt_month >= 3:
+    #                     if (date_cnt_month == 3) and (date_cnt_day == 1):
+    #                         AD_result.append(f"     {datetime.date(date_cnt_year, 2, 29)}     ")
+    #                         AD_data.append(f" {j - i + 1}周期 ")
+    #                         AD_result.append(f"     {date_cnt}     ")
+    #                         AD_data.append(f" {j - i + 1}周期 ")
+    #                         date_cnt += datetime.timedelta(1)
+    #                     else:
+    #                         if not((date_cnt_month >= 11) and ((date_cnt_month == 12) or (date_cnt_day >= 16))):
+    #                             date_cnt += datetime.timedelta(1)
+    #                         AD_result.append(f"     {date_cnt}     ")
+    #                         AD_data.append(f" {j - i + 1}周期 ")
+    #                 else:
+    #                     AD_result.append(f"     {date_cnt}     ")
+    #                     AD_data.append(f" {j - i + 1}周期 ")
+    #             else:
+    #                 AD_result.append(f"     {date_cnt}     ")
+    #                 AD_data.append(f" {j - i + 1}周期 ")
+    #     else:
+    #         break
 
     KIN_df = pd.DataFrame({"結果": KIN_result}, index=KIN_data)
     st.session_state.KIN = KIN_df
-    AD_df = pd.DataFrame({"日付": AD_result}, index=AD_data)
-    st.session_state.AD = AD_df
-    st.session_state.birth = f"{st_year}年{st_month}月{st_day}日生まれの人の計算結果"
-    st.session_state.range = f"ツォルキン周期対応表(±{st_range}周期)"
+    # AD_df = pd.DataFrame({"日付": AD_result}, index=AD_data)
+    # st.session_state.AD = AD_df
+    # st.session_state.birth = f"{st_year}年{st_month}月{st_day}日生まれの人の計算結果"
+    # st.session_state.range = f"ツォルキン周期対応表(±{st_range}周期)"
     # KIN_list, AD_list = st.columns(2)
     # with KIN_list:
     #   st.subheader(f"{st_year}年{st_month}月{st_day}日生まれの人の計算結果")
@@ -291,15 +291,15 @@ def test_app():
             _, max_day[i] = calendar.monthrange(st_year[i], st_month[i])
             st_day[i] = int(st.number_input(f"日{i + 1}", min_value=1, max_value=max_day[i], value=1))
     #計算結果を表示
-    output_col = st.columns(2 * st.session_state.count)
+    output_col = st.columns(st.session_state.count)
     for i in range(st.session_state.count):
         ADtoKIN_calc(st_year[i], st_month[i], st_day[i], st_range)
-        with output_col[i * 2]:
+        with output_col[i]:
             # st.subheader(st.session_state.birth)
             st.table(st.session_state.KIN)
-        with output_col[i * 2 + 1]:
+        # with output_col[i * 2 + 1]:
             # st.subheader(st.session_state.range)
-            st.dataframe(st.session_state.AD)
+            # st.dataframe(st.session_state.AD)
 
     # for i in range(st.session_state.count):
     #   st.title(f"カレンダー{i + 1}")
