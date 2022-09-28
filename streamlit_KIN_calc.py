@@ -1,4 +1,3 @@
-from operator import index
 import streamlit as st
 import datetime
 import calendar
@@ -14,7 +13,11 @@ KINlist = ("赤い龍", "白い風", "青い夜", "黄色い種",
 #KINlist3 = f"音{KINnum % 13 + 1}"
 
 STRINGS_LENGTH = 30
+STRING_ADJUST = 40
 
+#--------------------------------------------------------------------------------------------------
+#初期化
+#--------------------------------------------------------------------------------------------------
 def test_app_init():
     st.set_page_config(
         page_title = "ツォルキン計算",
@@ -29,7 +32,12 @@ def test_app_init():
         st.session_state.KIN = ""
     if "birth" not in st.session_state:
         st.session_state.birth = 1
+    if "range" not in st.session_state:
+        st.session_state.range = 15
 
+#--------------------------------------------------------------------------------------------------
+#入力した年月日からKINの値を取得
+#--------------------------------------------------------------------------------------------------
 def Get_KIN_num(st_year: int, st_month: int, st_day: int):
     first_date = datetime.date.min
     specified_date = datetime.date(st_year, st_month, st_day)
@@ -45,15 +53,24 @@ def Get_KIN_num(st_year: int, st_month: int, st_day: int):
         KIN_num = 260
     return KIN_num
 
+#--------------------------------------------------------------------------------------------------
+#入力した年月日から各種KINを取得
+#--------------------------------------------------------------------------------------------------
 def ADtoKIN_calc(st_year: int, st_month: int, st_day: int, *KIN_data_sel: tuple):
+    #--------------------------------------------------------------------------------------------------
+    #初期化
+    #--------------------------------------------------------------------------------------------------
     KIN_num = Get_KIN_num(st_year, st_month, st_day)
-
     KIN_data = []
     KIN_result = []
-
     KIN_math = (KIN_num - 1) % 20 + 1
     sound_num = (KIN_num - 1) % 13 + 1
-    if len(KIN_data_sel) == 0 or "KIN" in KIN_data_sel: #KIN
+
+    #--------------------------------------------------------------------------------------------------
+    #計算
+    #--------------------------------------------------------------------------------------------------
+    #KIN
+    if len(KIN_data_sel) == 0 or "KIN" in KIN_data_sel:
         add_KIN_info = ""
         black_KIN_num = [1, 20, 22, 39, 43, 50, 51, 58, 64, 69, 72, 77, 85, 88, 93, 96, 106, 107, 108,
                         109, 110, 111, 112, 113, 114, 115, 146, 147, 148, 149, 150, 151, 152, 153, 154,
@@ -67,16 +84,20 @@ def ADtoKIN_calc(st_year: int, st_month: int, st_day: int, *KIN_data_sel: tuple)
             add_KIN_info += " (黒KIN)"
         KIN_data.append("KIN")
         KIN_result.append((str)(KIN_num) + add_KIN_info)
-    if len(KIN_data_sel) == 0 or "SC" in KIN_data_sel: #SC
+    #SC
+    if len(KIN_data_sel) == 0 or "SC" in KIN_data_sel:
         KIN_data.append("SC")
         KIN_result.append(KINlist[KIN_math - 1].ljust(STRINGS_LENGTH - len(KINlist[KIN_math - 1])))
-    if len(KIN_data_sel) == 0 or "WS" in KIN_data_sel: #WS
+    #WS
+    if len(KIN_data_sel) == 0 or "WS" in KIN_data_sel:
         KIN_data.append("WS")
         KIN_result.append(KINlist[(KIN_num - 1) // 13 * 13 % 20].ljust(STRINGS_LENGTH - len(KINlist[(KIN_num - 1) // 13 * 13 % 20])))
-    if len(KIN_data_sel) == 0 or "銀河の音" in KIN_data_sel: #銀河の音
+    #銀河の音
+    if len(KIN_data_sel) == 0 or "銀河の音" in KIN_data_sel:
         KIN_data.append("銀河の音")
         KIN_result.append(f"音{sound_num}".ljust(STRINGS_LENGTH - len(f"音{sound_num}")))
-    if len(KIN_data_sel) == 0 or "5つの城" in KIN_data_sel: #5つの城
+    #5つの城
+    if len(KIN_data_sel) == 0 or "5つの城" in KIN_data_sel:
         KIN_castle_info = ""
         KIN_castle_num = (KIN_num - 1) // 52
         if KIN_castle_num == 0:
@@ -91,16 +112,20 @@ def ADtoKIN_calc(st_year: int, st_month: int, st_day: int, *KIN_data_sel: tuple)
             KIN_castle_info = "魅惑の緑の中央の城"
         KIN_data.append("5つの城")
         KIN_result.append(KIN_castle_info.ljust(STRINGS_LENGTH - len(KIN_castle_info)))
-    if len(KIN_data_sel) == 0 or "反対KIN" in KIN_data_sel: #反対KIN
+    #反対KIN
+    if len(KIN_data_sel) == 0 or "反対KIN" in KIN_data_sel:
         KIN_data.append("反対KIN")
         KIN_result.append(KINlist[(KIN_math + 9) % 20].ljust(STRINGS_LENGTH - len(KINlist[(KIN_math + 9) % 20])))
-    if len(KIN_data_sel) == 0 or "類似KIN" in KIN_data_sel: #類似KIN
+    #類似KIN
+    if len(KIN_data_sel) == 0 or "類似KIN" in KIN_data_sel:
         KIN_data.append("類似KIN")
         KIN_result.append(KINlist[(38 - KIN_math) % 20].ljust(STRINGS_LENGTH - len(KINlist[(38 - KIN_math) % 20])))
-    if len(KIN_data_sel) == 0 or "神秘KIN" in KIN_data_sel: #神秘KIN
+    #神秘KIN
+    if len(KIN_data_sel) == 0 or "神秘KIN" in KIN_data_sel:
         KIN_data.append("神秘KIN")
         KIN_result.append(KINlist[20 - KIN_math].ljust(STRINGS_LENGTH - len(KINlist[20 - KIN_math])))
-    if len(KIN_data_sel) == 0 or "ガイドKIN" in KIN_data_sel: #ガイドKIN
+    #ガイドKIN
+    if len(KIN_data_sel) == 0 or "ガイドKIN" in KIN_data_sel:
         guide_sel = sound_num % 5
         if guide_sel == 1:
             guide_num = KIN_math - 1
@@ -119,15 +144,168 @@ def ADtoKIN_calc(st_year: int, st_month: int, st_day: int, *KIN_data_sel: tuple)
             reverse_guide_num = (KIN_math + 11) % 20
         KIN_data.append("ガイドKIN")
         KIN_result.append(KINlist[guide_num].ljust(STRINGS_LENGTH - len(KINlist[guide_num])))
-    if len(KIN_data_sel) == 0 or "逆ガイドKIN" in KIN_data_sel: #逆ガイドKIN
+    #逆ガイドKIN
+    if len(KIN_data_sel) == 0 or "逆ガイドKIN" in KIN_data_sel:
         KIN_data.append("逆ガイドKIN")
         KIN_result.append(KINlist[reverse_guide_num].ljust(STRINGS_LENGTH - len(KINlist[reverse_guide_num])))
-    if len(KIN_data_sel) == 0 or "鏡KIN" in KIN_data_sel: #鏡KIN
+    #鏡KIN
+    if len(KIN_data_sel) == 0 or "鏡KIN" in KIN_data_sel:
         KIN_data.append("鏡KIN")
         KIN_result.append(f"{261 - KIN_num} (WS : {KINlist[(28 - KIN_math) % 20]})".ljust(STRINGS_LENGTH - len(f"{261 - KIN_num} (WS : {KINlist[(28 - KIN_math) % 20]})")))
 
-    # return pd.DataFrame({"結果": KIN_result}, index=KIN_data)
+    #--------------------------------------------------------------------------------------------------
+    #出力
+    #--------------------------------------------------------------------------------------------------
     return pd.DataFrame({"内容": KIN_data, "結果": KIN_result})
+
+#--------------------------------------------------------------------------------------------------
+#入力した年月日からツォルキン周期表を取得
+#--------------------------------------------------------------------------------------------------
+def Get_KIN_cycle(st_year: int, st_month: int, st_day: int, st_range: int):
+    #--------------------------------------------------------------------------------------------------
+    #初期化
+    #--------------------------------------------------------------------------------------------------
+    KIN_cycle = []
+    KIN_cycle_buff = []
+    AD_result = []
+    AD_result_buff = []
+
+    #--------------------------------------------------------------------------------------------------
+    #入力した年月日から周期分引いた日付を計算
+    #--------------------------------------------------------------------------------------------------
+    first_date = datetime.date.min
+    max_date = datetime.date.max
+    specified_date = datetime.date(st_year, st_month, st_day)
+    AD_date_diff = specified_date - first_date
+    KIN_date_diff = AD_date_diff.days
+    for i in range(st_year - 1):
+        if calendar.isleap(i + 1) == True:
+            KIN_date_diff -= 1
+    if (calendar.isleap(st_year) == True) and (st_month >= 3):
+        KIN_date_diff -= 1
+    KIN_num = (KIN_date_diff + 78) % 260
+    if KIN_num == 0:
+        KIN_num = 260
+    date_diff_cnt = KIN_date_diff
+    date_cnt = specified_date
+    for i in range(st_range + 1):
+        if date_diff_cnt > 260:
+            if i > 0:
+                date_diff_cnt -= 260
+                if calendar.isleap(date_cnt.year) == True:
+                    if not((date_cnt.month >= 11) and ((date_cnt.month == 12) or (date_cnt.day >= 16))): #3/1
+                        if date_cnt.month >= 3:
+                            date_cnt -= datetime.timedelta(1)
+                date_cnt -= datetime.timedelta(260)
+                if date_diff_cnt <= 260:
+                    break
+        else:
+            break
+
+    #--------------------------------------------------------------------------------------------------
+    #周期表の作成
+    #--------------------------------------------------------------------------------------------------
+    specified_date_month = specified_date.month
+    specified_date_day = specified_date.day
+    date_cnt_year = date_cnt.year
+    date_cnt_month = date_cnt.month
+    date_cnt_day = date_cnt.day
+    if specified_date == date_cnt:
+        if calendar.isleap(f"{date_cnt_year}") == True:
+            if (date_cnt_month == 2) and (date_cnt_day == 29):
+                AD_result_buff.append(f"{specified_date}")
+                KIN_cycle_buff.append("誕生日")
+                date_cnt += datetime.timedelta(1)
+                AD_result_buff.append(f"{date_cnt}")
+                KIN_cycle_buff.append("翌日")
+            elif (date_cnt_month == 3) and (date_cnt_day == 1):
+                AD_result_buff.append(f"{datetime.date(date_cnt_year, 2, 29)}")
+                KIN_cycle_buff.append("前日")
+                AD_result_buff.append(f"{specified_date}")
+                KIN_cycle_buff.append("誕生日")
+            else:
+                AD_result_buff.append(f"{date_cnt}")
+                KIN_cycle_buff.append("誕生日")
+        else:
+            AD_result_buff.append(f"{date_cnt}")
+            KIN_cycle_buff.append("誕生日")
+    else:
+        if calendar.isleap(date_cnt_year) == True:
+            if (date_cnt_month == 2) and (date_cnt_day == 29):
+                AD_result_buff.append(f"{date_cnt}")
+                KIN_cycle_buff.append(f"{- i}周期")
+                date_cnt += datetime.timedelta(1)
+            elif (date_cnt_month == 3) and (date_cnt_day == 1):
+                AD_result_buff.append(f"{datetime.date(date_cnt_year, 2, 29)}")
+                KIN_cycle_buff.append(f"{- i}周期")
+        AD_result_buff.append(f"{date_cnt}")
+        KIN_cycle_buff.append(f"{- i}周期")
+    date_lim = max_date- date_cnt
+    for j in range(st_range + i):
+        if date_lim.days > 260:
+            date_cnt += datetime.timedelta(260)
+            date_cnt_year = date_cnt.year
+            date_cnt_month = date_cnt.month
+            date_cnt_day = date_cnt.day
+            date_lim = max_date - date_cnt
+            if (specified_date == date_cnt) or (specified_date == (date_cnt + datetime.timedelta(1))):
+                if calendar.isleap(date_cnt_year) == True:
+                    if (specified_date_month == 2) and (specified_date_day == 29):
+                        AD_result_buff.append(f"{specified_date}")
+                        KIN_cycle_buff.append("誕生日")
+                        date_cnt += datetime.timedelta(1)
+                        AD_result_buff.append(f"{date_cnt}")
+                        KIN_cycle_buff.append("翌日")
+                    elif specified_date_month >= 3:
+                        if (specified_date_month == 3) and (specified_date_day == 1):
+                            AD_result_buff.append(f"{date_cnt}")
+                            KIN_cycle_buff.append("前日")
+                            AD_result_buff.append(f"{specified_date}")
+                            KIN_cycle_buff.append("誕生日")
+                            date_cnt += datetime.timedelta(1)
+                        else:
+                            if not((date_cnt_month >= 11) and ((date_cnt_month == 12) or (date_cnt_day >= 16))):
+                                date_cnt += datetime.timedelta(1)
+                            AD_result_buff.append(f"{date_cnt}")
+                            KIN_cycle_buff.append("誕生日")
+                    else:
+                        AD_result_buff.append(f"{date_cnt}")
+                        KIN_cycle_buff.append("誕生日")
+                else:
+                    AD_result_buff.append(f"{date_cnt}")
+                    KIN_cycle_buff.append("誕生日")
+            else:
+                if calendar.isleap(date_cnt_year) == True:
+                    if (date_cnt_month == 2) and (date_cnt_day == 29):
+                        AD_result_buff.append(f"{date_cnt}")
+                        KIN_cycle_buff.append(f"{j - i + 1}周期")
+                        date_cnt += datetime.timedelta(1)
+                        AD_result_buff.append(f"{date_cnt}")
+                        KIN_cycle_buff.append(f"{j - i + 1}周期")
+                    elif date_cnt_month >= 3:
+                        if (date_cnt_month == 3) and (date_cnt_day == 1):
+                            AD_result_buff.append(f"{datetime.date(date_cnt_year, 2, 29)}")
+                            KIN_cycle_buff.append(f"{j - i + 1}周期")
+                            AD_result_buff.append(f"{date_cnt}")
+                            KIN_cycle_buff.append(f"{j - i + 1}周期")
+                            date_cnt += datetime.timedelta(1)
+                        else:
+                            if not((date_cnt_month >= 11) and ((date_cnt_month == 12) or (date_cnt_day >= 16))):
+                                date_cnt += datetime.timedelta(1)
+                            AD_result_buff.append(f"{date_cnt}")
+                            KIN_cycle_buff.append(f"{j - i + 1}周期")
+                    else:
+                        AD_result_buff.append(f"{date_cnt}")
+                        KIN_cycle_buff.append(f"{j - i + 1}周期")
+                else:
+                    AD_result_buff.append(f"{date_cnt}")
+                    KIN_cycle_buff.append(f"{j - i + 1}周期")
+        else:
+            break
+    for i in range(len(KIN_cycle_buff)):
+        AD_result.append(str(AD_result_buff[i]).center(STRING_ADJUST - len(str(AD_result_buff[i]))))
+        KIN_cycle.append(str(KIN_cycle_buff[i]).center(STRING_ADJUST - len(str(KIN_cycle_buff[i]))))
+    return pd.DataFrame({"周期": KIN_cycle, "日付": AD_result})
 
 def Calc_inc():
     if st.session_state.count < 4:
@@ -144,20 +322,27 @@ def test_calc(test, i):
     test = i
     st.write(test)
 
+#--------------------------------------------------------------------------------------------------
+#メイン関数
+#--------------------------------------------------------------------------------------------------
 def test_app():
     test_app_init()
-    col1, col2, col3 = st.columns(3)
+    #設定
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.button("カレンダーを増やす", on_click=Calc_inc)
     with col2:
         st.button("カレンダーを減らす", on_click=Cacl_dec)
     with col3:
         st.button("リセット", on_click=Calc_reset)
+    with col4:
+        st.session_state.range = st.number_input("範囲", min_value=1, max_value=100, value=st.session_state.range)
     st.write("カレンダーの数 : ", st.session_state.count)
-    st_year = [1980] * st.session_state.count
-    st_month = [1] * st.session_state.count
-    st_day = [1] * st.session_state.count
-    max_day = [31] * st.session_state.count
+    today = datetime.date.today()
+    st_year = [today.year - 30] * st.session_state.count
+    st_month = [today.month] * st.session_state.count
+    st_day = [today.day] * st.session_state.count
+    max_day = [calendar.monthrange(today.year - 30, today.month)] * st.session_state.count
 
     #カレンダーの数を表示
     title_col = st.columns(st.session_state.count)
@@ -165,30 +350,32 @@ def test_app():
         with title_col[i]:
             st.title(f"カレンダー{i + 1}")
     #入力欄を表示
-    input_col = st.columns(3 * st.session_state.count)
+    input_col = st.columns(st.session_state.count)
     for i in range(st.session_state.count):
-        with input_col[i * 3]:
-            st_year[i] = int(st.number_input(f"年{i + 1}", min_value=1, max_value=9999, value=1980))
-        with input_col[i * 3 + 1]:
-            st_month[i] = int(st.number_input(f"月{i + 1}", min_value=1, max_value=12, value=1))
-        with input_col[i * 3 + 2]:
+        with input_col[i]:
+            st_year[i] = int(st.number_input(f"年{i + 1}", min_value=1, max_value=9999, value=today.year - 30))
+            st_month[i] = int(st.number_input(f"月{i + 1}", min_value=1, max_value=12, value=today.month))
             _, max_day[i] = calendar.monthrange(st_year[i], st_month[i])
-            st_day[i] = int(st.number_input(f"日{i + 1}", min_value=1, max_value=max_day[i], value=1))
+            st_day[i] = int(st.number_input(f"日{i + 1}", min_value=1, max_value=max_day[i], value=today.day))
     #計算結果を表示
-    output_col = st.columns(st.session_state.count)
+    result_col = st.columns(st.session_state.count)
     for i in range(st.session_state.count):
         st.session_state.birth = f"{st_year[i]}年{st_month[i]}月{st_day[i]}日"
         st.session_state.KIN = ADtoKIN_calc(st_year[i], st_month[i], st_day[i])
         st.session_state.KIN.index = st.session_state.KIN["内容"]
         st.session_state.KIN = st.session_state.KIN.drop(columns="内容")
-        with output_col[i]:
+        with result_col[i]:
             st.subheader(st.session_state.birth)
             st.table(st.session_state.KIN)
+    personal_KIN_list_col = st.columns(st.session_state.count)
+    for i in range(st.session_state.count):
+        with personal_KIN_list_col[i]:
+            st.subheader(f"個人KIN年表{i + 1}")
             #起承転結
             KIN_story_list = []
             KIN_story = ["起", "承", "転", "結"]
             KIN_num = (Get_KIN_num(st_year[i], st_month[i], st_day[i]) - 1) % 20
-            for _i in range(4):
+            for _ in range(4):
                 if "赤い" in KINlist[KIN_num]:
                     KIN_story_list.append(KINlist[KIN_num])
                     KIN_num = (KIN_num + 5) % 20
@@ -204,7 +391,6 @@ def test_app():
             st.table(KIN_story_df)
             #個人KIN年表
             personal_KIN_list_df = pd.DataFrame(np.arange(315).reshape(105, 3))
-            # personal_KIN_list_df = pd.DataFrame()
             personal_KIN_date = []
             for j in range(105):
                 personal_KIN_df = ADtoKIN_calc(st_year[i] + j, st_month[i], st_day[i], "SC", "WS", "銀河の音")
@@ -214,6 +400,15 @@ def test_app():
             personal_KIN_list_df.index = personal_KIN_date
             personal_KIN_list_df.columns = ["SC", "WS", "銀河の音"]
             st.dataframe(personal_KIN_list_df)
+    KIN_birthday_list_col = st.columns(st.session_state.count)
+    for i in range(st.session_state.count):
+        with KIN_birthday_list_col[i]:
+            st.subheader(f"KIN周期表{i + 1}")
+            #KIN周期表
+            KIN_cycle_df = Get_KIN_cycle(st_year[i], st_month[i], st_day[i], st.session_state.range)
+            KIN_cycle_df.index = KIN_cycle_df["日付"]
+            KIN_cycle_df = KIN_cycle_df.drop(columns="日付")
+            st.dataframe(KIN_cycle_df)
 
 if __name__ == "__main__":
     test_app()
