@@ -309,7 +309,7 @@ def Get_KIN_cycle(st_year: int, st_month: int, st_day: int, st_range: int):
     return pd.DataFrame({"周期": KIN_cycle, "日付": AD_result})
 
 def Calc_inc():
-    if st.session_state.count < 6:
+    if st.session_state.count < 8:
         st.session_state.count += 1
 
 def Cacl_dec():
