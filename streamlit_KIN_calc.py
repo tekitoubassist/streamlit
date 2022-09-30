@@ -14,6 +14,7 @@ KINlist = ("赤い龍", "白い風", "青い夜", "黄色い種",
 
 STRINGS_LENGTH = 30
 STRING_ADJUST = 40
+SHIFT_AGE = 30
 
 #--------------------------------------------------------------------------------------------------
 #初期化
@@ -151,7 +152,7 @@ def ADtoKIN_calc(st_year: int, st_month: int, st_day: int, *KIN_data_sel: tuple)
     #鏡KIN
     if len(KIN_data_sel) == 0 or "鏡KIN" in KIN_data_sel:
         KIN_data.append("鏡KIN")
-        KIN_result.append(f"{261 - KIN_num} (WS : {KINlist[(28 - KIN_math) % 20]})".ljust(STRINGS_LENGTH - len(f"{261 - KIN_num} (WS : {KINlist[(28 - KIN_math) % 20]})")))
+        KIN_result.append(f"{261 - KIN_num} (WS : {KINlist[(262 - KIN_num) // 13 * 13 % 20]})".ljust(STRINGS_LENGTH - len(f"{261 - KIN_num} (WS : {KINlist[(262 - KIN_num) // 13 * 13 % 20]})")))
 
     #--------------------------------------------------------------------------------------------------
     #出力
@@ -339,10 +340,10 @@ def test_app():
         st.session_state.range = st.number_input("範囲", min_value=1, max_value=100, value=st.session_state.range)
     st.write("カレンダーの数 : ", st.session_state.count)
     today = datetime.date.today()
-    st_year = [today.year - 30] * st.session_state.count
+    st_year = [today.year - SHIFT_AGE] * st.session_state.count
     st_month = [today.month] * st.session_state.count
     st_day = [today.day] * st.session_state.count
-    max_day = [calendar.monthrange(today.year - 30, today.month)] * st.session_state.count
+    max_day = [calendar.monthrange(today.year - SHIFT_AGE, today.month)] * st.session_state.count
 
     #カレンダーの数を表示
     title_col = st.columns(st.session_state.count)
