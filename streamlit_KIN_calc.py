@@ -338,7 +338,6 @@ def test_app():
         st.button("リセット", on_click=Calc_reset)
     with col4:
         st.session_state.range = st.number_input("範囲", min_value=1, max_value=100, value=st.session_state.range)
-    st.write("カレンダーの数 : ", st.session_state.count)
     today = datetime.date.today()
     st_year = [today.year - SHIFT_AGE] * st.session_state.count
     st_month = [today.month] * st.session_state.count
@@ -354,10 +353,16 @@ def test_app():
     input_col = st.columns(st.session_state.count)
     for i in range(st.session_state.count):
         with input_col[i]:
-            st_year[i] = int(st.number_input(f"年{i + 1}", min_value=1, max_value=9999, value=today.year - 30))
+            if today.year > SHIFT_AGE:
+                st_year[i] = int(st.number_input(f"年{i + 1}", min_value=1, max_value=9999, value=today.year - SHIFT_AGE))
+            else:
+                st_year[i] = int(st.number_input(f"年{i + 1}", min_value=1, max_value=9999, value=1))
             st_month[i] = int(st.number_input(f"月{i + 1}", min_value=1, max_value=12, value=today.month))
             _, max_day[i] = calendar.monthrange(st_year[i], st_month[i])
-            st_day[i] = int(st.number_input(f"日{i + 1}", min_value=1, max_value=max_day[i], value=today.day))
+            if today.day > max_day[i]:
+                st_day[i] = int(st.number_input(f"日{i + 1}", min_value=1, max_value=max_day[i], value=max_day[i]))
+            else:
+                st_day[i] = int(st.number_input(f"日{i + 1}", min_value=1, max_value=max_day[i], value=today.day))
     #計算結果を表示
     result_col = st.columns(st.session_state.count)
     for i in range(st.session_state.count):
