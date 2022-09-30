@@ -152,7 +152,7 @@ def ADtoKIN_calc(st_year: int, st_month: int, st_day: int, *KIN_data_sel: tuple)
     #鏡KIN
     if len(KIN_data_sel) == 0 or "鏡KIN" in KIN_data_sel:
         KIN_data.append("鏡KIN")
-        KIN_result.append(f"{261 - KIN_num} (WS : {KINlist[(262 - KIN_num) // 13 * 13 % 20]})".ljust(STRINGS_LENGTH - len(f"{261 - KIN_num} (WS : {KINlist[(262 - KIN_num) // 13 * 13 % 20]})")))
+        KIN_result.append(f"{261 - KIN_num} (WS : {KINlist[(260 - KIN_num) // 13 * 13 % 20]})".ljust(STRINGS_LENGTH - len(f"{261 - KIN_num} (WS : {KINlist[(260 - KIN_num) // 13 * 13 % 20]})")))
 
     #--------------------------------------------------------------------------------------------------
     #出力
