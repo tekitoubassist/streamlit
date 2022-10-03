@@ -329,6 +329,10 @@ def Cacl_dec():
 
 def Calc_reset():
     st.session_state.count = 2
+    st.session_state.birth_year = [today.year - SHIFT_AGE] * CALENDAR_MAX
+    st.session_state.birth_month = [today.month] * CALENDAR_MAX
+    st.session_state.birth_day = [today.day] * CALENDAR_MAX
+    st.session_state.max_day = [calendar.monthrange(today.year - SHIFT_AGE, today.month)] * CALENDAR_MAX
 
 #--------------------------------------------------------------------------------------------------
 #メイン関数
